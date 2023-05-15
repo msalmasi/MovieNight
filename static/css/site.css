@@ -7,7 +7,7 @@
     --var-background-color: #0F0F11;
     --var-popout-color: #393940;
     --var-max-height: 90vh;
-    --var-max-width: 98vw;
+    --var-max-width: 90vw;
 }
 
 html {
@@ -22,13 +22,16 @@ dt {
 
 body {
     height: var(--var-max-height);
-    margin: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 5vw;
+    margin-right: 5vw;
 }
 
 header {
     font-family: ubuntu;
     color: #3CC47C;
-    margin-left: 1%;
+    margin-left: 0px;
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -94,7 +97,7 @@ input[type=text] {
 .grid-root {
   display: grid;
   height: var(--var-max-height);
-  margin: 0px 1vw;
+  margin: 0px 0px;
   max-height: var(--var-max-height);
   max-width: var(--var-max-width);
   width: var(--var-max-width);
@@ -459,7 +462,7 @@ width: 6px;
 /* VIDEO ONLY MODE */
 /* --------------- */
 .video-only #videoElement {
-  height: 90vh;
+/*  height: 90vh;*/
 }
 
 /* ---------------------- */
@@ -472,6 +475,6 @@ width: 6px;
   }
 
   .combined #chatwindow {
-    max-height: calc(var(--var-max-height) - 95.25vw);
+    max-height: calc(var(--var-max-height) - 66.25vw);
   }
 }
