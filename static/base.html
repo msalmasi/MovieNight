@@ -5,8 +5,10 @@
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <title>{{ .Title }}</title>
+      <link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet'>
     <link rel="stylesheet" type="text/css" href="/static/css/hack/hack.css">
     <link rel="stylesheet" type="text/css" href="/static/css/site.css">
+      <link href="https://vjs.zencdn.net/8.3.0/video-js.css" rel="stylesheet" />
     <script type="application/javascript" src="/static/js/jquery.js"></script>
     <script type="application/javascript" src="/static/js/both.js"></script>
     <script type="application/javascript" src="/static/js/consts.js"></script>
@@ -14,6 +16,9 @@
 </head>
 
 <body class="scrollbar">
+      <header>
+<h1>plantbaked.tv</h1>
+</header>
     <img id="remote" src="/static/img/remote.png" onclick="flipRemote();" />
     <div id="devKeys"></div>
     {{template "body" .}}

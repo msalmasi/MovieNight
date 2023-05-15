@@ -3,10 +3,10 @@
     --var-border-radius: 5px;
     --var-message-color: #f4f4f4;
     --var-link-color: #a9c8c3;
-    --var-contrast-color: #1bf7ec;
+    --var-contrast-color: #3CC47C;
     --var-background-color: #0F0F11;
     --var-popout-color: #393940;
-    --var-max-height: 98vh;
+    --var-max-height: 90vh;
     --var-max-width: 98vw;
 }
 
@@ -23,6 +23,41 @@ dt {
 body {
     height: var(--var-max-height);
     margin: 0px;
+}
+
+header {
+    font-family: ubuntu;
+    color: #3CC47C;
+    margin-left: 1%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#altlink p {
+        font-family: ubuntu;
+        color: #828081;
+        margin-bottom: 20px;
+
+}
+
+/* unvisited link */
+#altlink a:link {
+  color: grey;
+}
+
+/* visited link */
+#altlink a:visited {
+  color: white;
+}
+
+/* mouse over link */
+#altlink a:hover {
+  color: white;
+}
+
+/* selected link */
+#altlink a:active {
+  color: hotpink;
 }
 
 span.name {
@@ -84,16 +119,17 @@ input[type=text] {
 
 .scrollbar {
     /* Firefox compatable scrollbar settings */
-    scrollbar-color: #45009e transparent;
+    scrollbar-color: #3CC47C transparent;
     scrollbar-width: thin;
 }
 
 .scrollbar::-webkit-scrollbar {
-    width: 6px;
+width: 6px;
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
-    background-color: #45009e;
+    background-color: #3CC47C;
+    scrollbar-width: thin;
 }
 
 .announcement {
@@ -200,6 +236,7 @@ input[type=text] {
 #videoWrapper {
     position: relative;
     display: flex;
+    flex-direction: column;
 }
 
 #videoOverlay {
@@ -422,7 +459,7 @@ input[type=text] {
 /* VIDEO ONLY MODE */
 /* --------------- */
 .video-only #videoElement {
-  height: 99vh;
+  height: 90vh;
 }
 
 /* ---------------------- */
@@ -431,10 +468,10 @@ input[type=text] {
 @media screen and (max-width: 480px) {
   .combined {
     grid-template-columns: 1fr;
-    grid-template-rows: 56.25vw 1fr;
+    grid-template-rows: 70.25vw 1fr;
   }
 
   .combined #chatwindow {
-    max-height: calc(var(--var-max-height) - 56.25vw);
+    max-height: calc(var(--var-max-height) - 95.25vw);
   }
 }

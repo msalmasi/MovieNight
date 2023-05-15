@@ -8,8 +8,8 @@
 {{end}}
 
 {{if .Video}}
-<script type="application/javascript" src="/static/js/flv.min.js"></script>
 <script type="application/javascript" src="/static/js/video.js"></script>
+  <script src="https://vjs.zencdn.net/8.3.0/video.min.js"></script>
 {{end}}
 
 {{/* end define header */}}
@@ -30,10 +30,13 @@
     <div id="videoOverlay">
         <img src="/static/img/mute-icon.png" />
     </div>
-    <video id="videoElement" x5-video-player-type="h5" x5-video-player-fullscreen="true" playsinline webkit-playsinline
-        autoplay muted controls>
-        Your browser is too old and doesn't support HTML5 video.
-    </video>
+  <video-js id="videoElement" class="video-js vjs-default-skin" preload="auto" autoplay controls playsinline>
+    <source src="https://plantbaked.tv/hls/broadcast.m3u8" type="application/x-mpegURL">
+  </video-js>
+  
+<div id="altlink">
+<p>Stream this with low latency in VLC (<a href="rtmp://plantbaked.tv/live/broadcast">rtmp://plantbaked.tv/live/broadcast</a>)</p>
+</div>
 </div>
 {{end}}
 

@@ -14,7 +14,6 @@ import (
 	"github.com/alexflint/go-arg"
 	"github.com/gorilla/sessions"
 	"github.com/nareix/joy4/format"
-	"github.com/nareix/joy4/format/rtmp"
 	"github.com/zorchenhimer/MovieNight/common"
 	"github.com/zorchenhimer/MovieNight/files"
 )
@@ -55,8 +54,6 @@ func setupSettings(adminPass string, confFile string) error {
 
 type args struct {
 	Addr        string `arg:"-l,--addr" help:"host:port of the HTTP server"`
-	RtmpAddr    string `arg:"-r,--rtmp" help:"host:port of the RTMP server"`
-	StreamKey   string `arg:"-k,--key" help:"Stream key, to protect your stream"`
 	AdminPass   string `arg:"-a,--admin" help:"Set admin password. Overrides configuration in settings.json. This will not write the password to settings.json."`
 	ConfigFile  string `arg:"-f,--config" help:"URI of the conf file"`
 	StaticDir   string `arg:"-s,--static" help:"Directory to read static files from by default"`
@@ -117,28 +114,10 @@ func run(args args) {
 		args.Addr = settings.ListenAddress
 	}
 
-	if args.RtmpAddr == "" {
-		args.RtmpAddr = settings.RtmpListenAddress
-	}
-
-	// A stream key was passed on the command line.  Use it, but don't save
-	// it over the stream key in the settings.json file.
-	if args.StreamKey != "" {
-		settings.SetTempKey(args.StreamKey)
-	}
-
-	common.LogInfoln("Stream key: ", settings.GetStreamKey())
 	common.LogInfoln("Admin password: ", settings.AdminPassword)
 	common.LogInfoln("HTTP server listening on: ", args.Addr)
-	common.LogInfoln("RTMP server listening on: ", args.RtmpAddr)
 	common.LogInfoln("RoomAccess: ", settings.RoomAccess)
 	common.LogInfoln("RoomAccessPin: ", settings.RoomAccessPin)
-
-	rtmpServer := &rtmp.Server{
-		HandlePlay:    handlePlay,
-		HandlePublish: handlePublish,
-		Addr:          args.RtmpAddr,
-	}
 
 	router := http.NewServeMux()
 
@@ -151,7 +130,6 @@ func run(args args) {
 	router.HandleFunc("/help", wrapAuth(handleHelpTemplate))
 	router.HandleFunc("/emotes", wrapAuth(handleEmoteTemplate))
 
-	router.HandleFunc("/live", wrapAuth(handleLive))
 	router.HandleFunc("/", wrapAuth(handleDefault))
 
 	httpServer := &http.Server{
@@ -159,14 +137,6 @@ func run(args args) {
 		Handler: router,
 	}
 
-	// RTMP Server
-	go func() {
-		err := rtmpServer.ListenAndServe()
-		if err != nil {
-			// If the server cannot start, don't pretend we can continue.
-			panic("Error trying to start rtmp server: " + err.Error())
-		}
-	}()
 
 	// HTTP Server
 	go func() {

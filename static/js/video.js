@@ -2,24 +2,27 @@
 
 
 function initPlayer() {
-    if (!flvjs.isSupported()) {
-        console.warn('flvjs not supported');
-        return;
-    }
 
     let videoElement = document.querySelector('#videoElement');
-    let flvPlayer = flvjs.createPlayer({
-        type: 'flv',
-        url: '/live'
-    });
-    flvPlayer.attachMediaElement(videoElement);
-    flvPlayer.load();
-    flvPlayer.play();
+
+   var player = videojs('videoElement', {
+   nativeAudioTracks: false,
+   nativeVideoTracks: false,
+fluid: true,
+responsive: true,
+   liveui: true,
+   muted: true,
+   vhs: { overrideNative: true, 
+          smoothQualityChange: true, 
+         enableLowInitialPlaylist: true }   
+   });
+   player.play();
+
 
     let overlay = document.querySelector('#videoOverlay');
     overlay.onclick = () => {
         overlay.style.display = 'none';
-        videoElement.muted = false;
+        player.muted(false);
     };
 }
 
