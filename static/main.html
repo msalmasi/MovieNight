@@ -8,8 +8,7 @@
 {{end}}
 
 {{if .Video}}
-<script type="application/javascript" src="/static/js/video.js"></script>
-  <script src="https://vjs.zencdn.net/8.3.0/video.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ovenplayer/dist/ovenplayer.js"></script>
 {{end}}
 
 {{/* end define header */}}
@@ -27,12 +26,28 @@
 
 {{if .Video}}
 <div id="videoWrapper">
-    <div id="videoOverlay">
+<!--     <div id="videoOverlay">
         <img src="/static/img/mute-icon.png" />
-    </div>
-  <video-js id="videoElement" class="video-js vjs-default-skin" preload="auto" autoplay controls playsinline>
+    </div> -->
+    <div id="player_id"></div>
+<!--   <video-js id="videoElement" class="video-js vjs-default-skin" preload="auto" autoplay controls playsinline>
     <source src="https://plantbaked.tv/hls/broadcast.m3u8" type="application/x-mpegURL">
-  </video-js>
+  </video-js> -->
+      <script>
+
+        // Initialize OvenPlayer
+        const player = OvenPlayer.create('player_id', {
+            sources: [
+                {
+                    label: 'label_for_webrtc',
+                    // Set the type to 'webrtc'
+                    type: 'webrtc',
+                    // Set the file to WebRTC Signaling URL with OvenMediaEngine 
+                    file: 'wss://stream.houseplants.cc:3334/app/stream'
+                }
+            ]
+        });
+    </script>
   
 <div id="altlink">
 <p>Stream this with low latency in VLC (<a href="rtmp://plantbaked.tv/live/broadcast">rtmp://plantbaked.tv/live/broadcast</a>)</p>
